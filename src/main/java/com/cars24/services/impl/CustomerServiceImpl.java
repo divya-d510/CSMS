@@ -1,12 +1,13 @@
 package com.cars24.services.impl;
 
-import com.cars24.dao.CustomerDao;
 import com.cars24.dao.impl.CustomerDaoImpl;
 import com.cars24.data.req.AddCustomerReq;
 import com.cars24.data.req.CustomerProfileReq;
+import com.cars24.data.req.DeleteCustomerReq;
+import com.cars24.data.req.UpdateCustomerReq;
 import com.cars24.data.res.CustomerProfileRes;
 import com.cars24.services.CustomerService;
-import com.cars24.vailidation.CustomerValidation;
+import com.cars24.validation.CustomerValidation;
 
 public class CustomerServiceImpl implements CustomerService {
 
@@ -20,7 +21,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         try {
             // Step 1: Validate input
-            customerValidation.validateAddCustomerReq(addCustomerReq);
+            customerValidation.validateAddCustomerRequest(addCustomerReq);
 
             // Step 2: Call DAO to create customer
             customerDao.createCustomer(addCustomerReq);
@@ -36,5 +37,14 @@ public class CustomerServiceImpl implements CustomerService {
         CustomerProfileRes res = customerDao.getCustomer(customerProfileReq);
         return res;
 
+    }
+
+    public String updateCustomerProfile(UpdateCustomerReq updateCustomerReq){
+        String response = customerDao.updateCustomer(updateCustomerReq);
+        return response;
+    }
+    public String deleteCustomerProfile(DeleteCustomerReq deleteCustomerRequest){
+        String response=customerDao.deleteCustomer(deleteCustomerRequest);
+        return response;
     }
 }
